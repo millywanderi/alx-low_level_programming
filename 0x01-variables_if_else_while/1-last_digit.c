@@ -1,15 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-/* more headers goes there */
 
-/* betty style doc for function main goes there */
-/*
- *
- * main - Entry point
- *
- * Return: Always 0 (success)
- */
+/**
+  * main - Entry point
+  *
+  * Return: Always 0 (success)
+  */
 
 int main(void)
 {
@@ -25,7 +22,7 @@ int main(void)
 	}
 	else if ((n % 10) == 0)
 	{
-		printf(Last digit of "%d and is %d is 0\n", n, n % 10);
+		printf("Last digit of %d and is %d is 0\n", n, n % 10);
 	}
 	else if ((n % 10) < 6 && (n % 10) != 0)
 	{
