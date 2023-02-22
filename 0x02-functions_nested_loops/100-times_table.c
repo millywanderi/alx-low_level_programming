@@ -23,23 +23,22 @@ void print_times_table(int n)
 				r = m * t;
 
 				if (r < 99)
-				{
+
 					_putchar(' ');
-				if (rest <= 9)
-					{
-						_putchar(' ');
+				if (r <= 9)
+
+					_putchar(' ');
 				if (r <= 100)
-						{
-							_putchar((rest / 100) + '0');
-							_putchar(((rest / 10)) % 10 + '0');
-						}
-				else if (rest <= 99 && rest >= 10)
-						{
-							_putchar((rest / 10) + '0');
-						}
-						_putchar((rest % 10) + '0');
-					}
+				{
+					_putchar((r / 100) + '0');
+					_putchar(((r / 10)) % 10 + '0');
 				}
+				else if (r <= 99 && r >= 10)
+				{
+					_putchar((r / 10) + '0');
+				}
+				_putchar((r % 10) + '0');
+
 			}
 			_putchar('\n');
 		}
