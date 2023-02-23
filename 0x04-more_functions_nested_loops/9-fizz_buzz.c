@@ -9,7 +9,7 @@ int main(void)
 {
 	int m = 1;
 
-	while (m < 100)
+	while (m <= 100)
 	{
 		int Fizz = m % 3;
 		int Buzz = m % 5;
