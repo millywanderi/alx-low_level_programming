@@ -4,14 +4,13 @@
 #include <math.h>
 
 /**
-  * main - generates random valid passwords for the program
-  * 101-crackme.
+  * main - entry point.
   * Return: Always 0 (success)
   */
 
 int main(void)
 {
-	char password = 84;
+	char password[84];
 	int index;
 	int total;
 	int diff_half1;
