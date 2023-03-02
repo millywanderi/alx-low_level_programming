@@ -1,38 +1,34 @@
 #include "main.h"
+#include <stdio.h>
 
 /**
- * cap_string - capitalizes chars in a string following a separator
- *
- * @c: character string pointer
- * Return: char pointer
- */
+  * cap_string - function that capitalizes all words of a string.
+  * @str:- single user inpur.
+  * Return:- Always 0 (success)
+  */
 
-char *cap_string(char *c)
+char *cap_string(char *str)
 {
-	int m = 0, n;
+	int m = 0;
 
-	sep[] = {32, '\t', 11,  '\n', 44, 59, 46, 33, 63, 34, 40, 41, 123, 125};
-
-	if (c[0] > 96 && c[0] < 123)
-		c[0] -= 32;
-
-	while (c[m] != '\0')
+	while (str[m])
 	{
-		if (c[m] > 96 && c[m] < 123)
+		while (!(str[m] >= 'a' && str[m] <= 'z'))
 		{
-			n = 0;
+			m++;
 
-			while (n < 14)
-			{
-				if (c[m - 1] == sep[n])
-				{
-					c[m] -= 32;
-					break;
-				}
-				n++;
-			}
+		}
+		if (str[m - 1] == ' ' || str[m - 1] == '\t' || str[m - 1] == '\n' ||
+			str[m - 1] == ',' || str[m - 1] == ';' || str[m - 1] == '.' ||
+			str[m - 1] == '!' || str[m - 1] == '?' || str[m - 1] == '"' ||
+			str[m - 1] == '(' || str[m - 1] == ')' || str[m - 1] == '{' ||
+			str[m - 1] == '}' || m == 0)
+		{
+			str[m] -= 32;
 		}
 		m++;
+
 	}
-	return (c);
+	return (str);
+
 }
