@@ -1,39 +1,83 @@
 #include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
-  * str_concat - a function that concatenates two strings.
-  * @s1: string which s2 is to be concatenated upon
-  * @s2: string to be concatenated to s1
-  * Return: pointer should point to a newly allocated
-  * space in memory which contains the contents of s1,
-  * followed by the contents of s2, and null terminated
-  * NULL on failure
+  * length - function that returns length of string.
+  * @s:- single user input.
+  * Return:- length.
+  */
+
+int length(char *s)
+{
+	int m;
+
+	for (m = 0; s[m] != '\0'; m++)
+	{
+
+	}
+	return (m);
+}
+
+
+/**
+  * _strncat - Function that joins two strings.
+  * @dest:- destination for joining.
+  * @src:- source of the string.
+  * @n:- single user input
+  * Return:- Always 0 (success) / new location of string
+  */
+
+char *_strncat(char *dest, char *src, int n)
+{
+	int dest_length;
+	int m;
+
+	dest_length = length(dest);
+
+	for (m = 0; m < n && src[m] != '\0'; m++)
+		dest[dest_length + m] = src[m];
+
+	return (dest);
+}
+
+/**
+  * str_concat - function that concatesnates strings.
+  * @s1:- single user input. 1st string.
+  * @s2:- single user input. 2rd string.
+  * Return:- Always 0 (success)
   */
 
 char *str_concat(char *s1, char *s2)
 {
-	char *concat_str;
-	int i, concat_index = 0,  len = 0;
+	char *ptr;
+	int siz1;
+	int siz2;
 
 	if (s1 == NULL)
+	{
 		s1 = "";
+	}
 
 	if (s2 == NULL)
+	{
 		s2 = "";
+	}
 
-	for (i = 0; s1[i] || s2[i]; i++)
-		len++;
+	siz1 = length(s1);
+	siz2 = length(s2);
 
-	concat_str = malloc(sizeof(char) * len);
-
-	if (concat_str == NULL)
+	ptr = malloc(sizeof(char) * ((siz1 + siz2) + 1));
+	if (ptr == NULL)
+	{
 		return (NULL);
+	}
 
-	for (i = 0; s1[i]; i++)
-		concat_str[concat_index++] = s1[i];
+	_strncat(ptr, s1, siz1);
+	_strncat(ptr, s2, siz2);
 
-	for (i = 0; s2[i]; i++)
-		concat_str[concat_index++] = s2[i];
+	ptr += '\0';
 
-	return (concat_str);
+	return (ptr);
+
 }
