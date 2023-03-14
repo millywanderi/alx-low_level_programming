@@ -11,5 +11,6 @@ char *argstostr(int ac, char **av);
 char **strtow(char *str);
 int len(char *str);
 int count(char *str);
-
+char *_strncat(char *dest, char *src, int n);
+int length(char *s);
 #endif
