@@ -1,11 +1,10 @@
 #include <stdio.h>
 
-void __attribute__((constructor)) hare(void);
+void print_before(void)__attribute__((constructor));
 
 /**
  * print_before - Prints a string before the
  * main function is executed.
- * Return: Always 0 (success)
  */
 
 void print_before(void)
