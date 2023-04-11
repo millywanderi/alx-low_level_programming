@@ -13,37 +13,27 @@
 
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	char *str;
-	ssize_t openVar;
-	ssize_t readVar;
-	ssize_t writeVar;
+	char str[milly];
+	int characters = 0;
+	int file;
+	int writevar = 1;
 
-	if (letters == 0)
+	file = open(filename, O_RDONLY);
+	if (file == -1)
 		return (0);
-	if (filename == NULL)
-		return (0);
-
-	openVar = open(filename, O_RDONLY);
-	if (openVar == -1)
-		return (0);
-
-	str = malloc(letters);
-	readVar = read(openVar, str, letters);
-	if (readVar == -1)
+	while (writevar != 0 && letters > milly)
 	{
-		free(str);
-		close(openVar);
-		return (0);
+		writevar = read(file, str, milly);
+		write(STDOUT_FILENO, str, writevar);
+		characters = characters + writevar;
+		letters -= milly;
 	}
-	writeVar = write(STDOUT_FILENO, str, readVar);
-	if (writeVar == -1)
-	{
-		free(readVar);
-		close(openVar);
-		return (0);
-	}
-	free(str);
-	close(openVar);
+	writevar = read(file, str, letters);
+	write(STDOUT_FILENO, str, writevar);
+	characters = characters + writevar;
+	close(file);
 
-	return (writeVar);
+	if (!filename)
+		return (0);
+	return (characters);
 }
