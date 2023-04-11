@@ -27,17 +27,18 @@ int _strlen(char *s)
 
 unsigned int binary_to_uint(const char *b)
 {
-	int m;
-	int len = strlen(b);
+	int len;
 	unsigned int n = 0;
 	unsigned int j = 1;
 
-	for (m = len - 1; m >= 0; m--)
+	for (len = strlen(b) - 1; len >= 0; len--)
 	{
-		if (b[m] == '1')
+		if (b[len] == '1')
+		{
 			n += j;
+		}
 		j = j * 2;
-		if (b[m] != '1' && b[m] != '0')
+		if (b[len] != '1' && b[len] != '0')
 			return (0);
 	}
 	if (b == NULL)
