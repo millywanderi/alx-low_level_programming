@@ -2,65 +2,43 @@
 #include "main.h"
 
 /**
-  * file_name - A function that checks if the file can open.
-  * @source_file: file in which contents are copied from.
-  * @dest_file: file in which source_file contents are copied
-  * @argv: number of arguments.
-  * Return: Always 0.
-  */
-
-void file_name(int source_file, dest_file, char *argv[])
-{
-	if (source_file == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: %s\n", argv[1]);
-		exit(98);
-	}
-	if (dest_file == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: %s\n", argv[2]);
-		exit(99);
-	}
-
-}
-
-/**
   * main - Main entry point
-  * @argc: Arguments
-  * @argv: number of arguments
+  * @var: Arguments
+  * @av: number of arguments
   * Return: Always 0 (success)
   */
 
-int main(int argc, char *argv[])
+int main(int var, char *av[])
 {
-	int file_name, file_from, file_to, error;
-	char buf[1024];
-	ssize_t characters, nwr;
+	char str[milly];
+	int from, to, readfile, writefile;
+	mode_t access = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
 
-	if (argc != 3)
+	if (var != 3)
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n"), exit(97);
+	from = open(av[1], O_RDONLY);
+	if (from == -1)
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", av[1]), exit(98);
+	to = open(av[2], O_CREAT | O_WRONLY | O_TRUNC, access);
+	if (to == -1)
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]), exit(99);
+	readfile = 1;
+	while (readfile)
 	{
-		dprintf(STDERR_FILENO, "%s\n", "Usage: cp file_from file_to");
-		exit(97);
-	}
-	file_from = open(argv[1], O_RDONLY);
-	file_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0664);
-	file_name(file_from, file_to, argv);
+		readfile = read(from, str, milly);
+		if (readfile == -1)
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", av[1]), exit(98);
+		if (readfile > 0)
+		{
+			writefile = write(to, str, readfile);
+			if (writefile != readfile || writefile == -1)
+				dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]), exit(99);
 
-	characters = 1024;
-	while (characters == 1024)
-	{
-		characters = read(file_from, buf, 1024);
-		if (characters == -1)
-			file_name(0, -1, argv);
-		nwr = write(file_to, buf, characters);
-		if (nwr == -1)
-			file_name(0, -1, argv);
+		}
 	}
-	error = close(file_to);
-	if (error == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: %d\n", file_from);
-		exit(100);
-	}
+	if (close(from) == -1)
+		dprintf(STDERR_FILENO, "Error: Can't close file fd %d\n", from), exit(100);
+	if (close(to) == -1)
+		dprintf(STDERR_FILENO, "Error: Can't close file fd %d\n", to), exit(100);
 	return (0);
 }
