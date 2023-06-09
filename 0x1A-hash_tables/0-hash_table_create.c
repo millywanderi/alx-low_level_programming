@@ -8,19 +8,18 @@
  */
 hash_table_t *hash_table_create(unsigned long int size)
 {
-	unsigned int m = 0;
-	hash_table_t *new_table;
+	hash_table_t *n_table;
 
-	if (size < 1)
+	n_table = malloc(sizeof(hash_table_t));
+	if (n_table == NULL)
 		return (NULL);
-	new_table = malloc(sizeof(hash_table_t *) * size);
-	if (!new_table)
+	n_table->size = size;
+
+	n_table->array = malloc(sizeof(void *) * size);
+	if (n_table->array == NULL)
+	{
+		free(n_table);
 		return (NULL);
-	new_table->array = malloc(sizeof(hash_table_t *) * size);
-	if (new_table->array == NULL)
-		return (NULL);
-	for (m = 0; m < size; m++)
-		new_table->array[m] = NULL;
-	new_table->size = size;
-	return (new_table);
+	}
+	return (n_table);
 }
