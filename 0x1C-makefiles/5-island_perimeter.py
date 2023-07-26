@@ -11,17 +11,13 @@ def island_perimeter(grid):
     island described by grid.
     """
 
-    height = len(grid)
-    width = len(grid[0])
-    edges = 0
-    size = 0
-
-    for m in range(height):
-        for n in range(width):
+    peri = 0
+    for m in range(len(grid)):
+        for n in range(len(grid[0])):
             if grid[m][n] == 1:
-                size += 1
-            if (n > 0 and grid[m][n - 1] == 1):
-                edges += 1
-            if (n > 0 and grid[m - 1][n] == 1):
-                edges += 1
-    return size * 4 - edges * 2
+                peri += 4
+                if m > 0 and grid[m - 1][n] == 1:
+                    peri -= 2
+                if n > 0 and grid[m][n - 1] == 1:
+                    peri -= 2
+    return peri
