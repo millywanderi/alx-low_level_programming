@@ -10,31 +10,44 @@
  */
 int binary_search(int *array, size_t size, int value)
 {
-	size_t mid, m;
-	size_t lo;
-	size_t hi = size - 1;
-
 	if (array == NULL)
 		return (-1);
-	while (lo <= hi)
+	return (recursive_helper(array, 0, size - 1, value));
+}
+
+/**
+ * recursive_helper - recursive implement binary search
+ * @array: search array
+ * @left: left index
+ * @right: right index
+ * @value: search value
+ *
+ * Return: index of the found value, otherwise -1
+ */
+int recursive_helper(int *array, size_t left, size_t right, int value)
+{
+	size_t m = left, mid;
+
+	if (left > right)
+		return (-1);
+
+	/* print search progress */
+	printf("Searching in array: %d", array[m++]);
+	while (m <= right)
+		printf(", %d", array[m++]);
+	printf("\n");
+
+	/* calculate mid */
+	mid = left + ((right - left) / 2);
+
+	/* check if mid is value */
+	if (array[mid] == value)
+		return (mid);
+	else if (array[mid] == value)
 	{
-		mid = (lo + hi) / 2;
-
-		printf("Searching in array: ");
-		for (m = lo; m <= hi; m++)
-		{
-			printf("%d", array[m]);
-			if (m < hi)
-				printf(", ");
-		}
-		printf("\n");
-
-		if (array[mid] < value)
-			lo = mid + 1;
-		hi = mid - 1;
-
-		if (lo != size && array[lo] == value)
-			return (lo);
+		if (mid != 0)
+			return (recursive_helper(array, left, mid - 1, value));
+		return (-1);
 	}
-	return (-1);
+	return (recursive_helper(array, mid + 1, right, value));
 }
