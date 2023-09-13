@@ -53,10 +53,19 @@ int advanced_binary(int *array, size_t size, int value);
 void print_array(int *array, size_t size);
 listint_t *jump_list(listint_t *list, size_t size, int value);
 skiplist_t *linear_skip(skiplist_t *list, int value);
+skiplist_t *recur_normal(skiplist_t *probe, skiplist_t *stop, int value);
+skiplist_t *rec_express(skiplist_t *probe, int value);
+skiplist_t *find_list_end(skiplist_t *probe);
 
 /* listint prototypes */
 listint_t *create_list(int *array, size_t size);
 void free_list(listint_t *list);
 void print_list(const listint_t *list);
+
+/* skiplist prototypes */
+void init_express(skiplist_t *list, size_t size);
+skiplist_t *create_skiplist(int *array, size_t size);
+void free_skiplist(skiplist_t *list);
+void print_skiplist(const skiplist_t *list);
 
 #endif
